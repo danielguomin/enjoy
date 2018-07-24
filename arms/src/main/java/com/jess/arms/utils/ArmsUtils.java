@@ -350,13 +350,20 @@ public class ArmsUtils {
         }
     }
 
-    public static boolean isEmpty(Object obj) {
+    public static boolean isNull(Object obj) {
         if (obj == null) {
             return true;
         }
         return false;
     }
 
+
+    public static boolean isEmpty(String str) {
+        if (null == str || "".equals(str.trim())) {
+            return true;
+        }
+        return false;
+    }
 
     /**
      * MD5
