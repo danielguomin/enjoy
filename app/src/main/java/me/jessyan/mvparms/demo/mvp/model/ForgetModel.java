@@ -9,7 +9,13 @@ import com.jess.arms.mvp.BaseModel;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
 import me.jessyan.mvparms.demo.mvp.contract.ForgetContract;
+import me.jessyan.mvparms.demo.mvp.model.api.service.LoginAndRegisterService;
+import me.jessyan.mvparms.demo.mvp.model.entity.BaseResponse;
+import me.jessyan.mvparms.demo.mvp.model.entity.ForgetRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.RegisterResponse;
+import me.jessyan.mvparms.demo.mvp.model.entity.VeritfyRequest;
 
 
 @ActivityScope
@@ -31,4 +37,15 @@ public class ForgetModel extends BaseModel implements ForgetContract.Model {
         this.mApplication = null;
     }
 
+    @Override
+    public Observable<BaseResponse> getVerifyForFind(VeritfyRequest veritfyRequest) {
+        return mRepositoryManager.obtainRetrofitService(LoginAndRegisterService.class)
+                .getVerifyForFind(veritfyRequest);
+    }
+
+    @Override
+    public Observable<RegisterResponse> find(ForgetRequest forgetRequest) {
+        return mRepositoryManager.obtainRetrofitService(LoginAndRegisterService.class)
+                .find(forgetRequest);
+    }
 }

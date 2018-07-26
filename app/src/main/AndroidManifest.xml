@@ -44,7 +44,8 @@
 
         <activity android:name=".mvp.ui.activity.ForgetActivity" />
         <activity android:name=".mvp.ui.activity.ModifyActivity" />
-        <activity android:name=".mvp.ui.activity.RegisterActivity"></activity>
+        <activity android:name=".mvp.ui.activity.RegisterActivity" />
+        <activity android:name=".mvp.ui.activity.MainActivity" />
     </application>
 
 </manifest>

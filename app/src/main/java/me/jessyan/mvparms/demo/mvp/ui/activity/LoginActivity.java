@@ -1,5 +1,6 @@
 package me.jessyan.mvparms.demo.mvp.ui.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +13,9 @@ import android.widget.TextView;
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
+import com.tbruyelle.rxpermissions2.RxPermissions;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import me.jessyan.mvparms.demo.R;
@@ -45,6 +49,12 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     View byUserNameV;
     @BindView(R.id.get_validate)
     View getValidateV;
+    @BindView(R.id.login)
+    View loginV;
+    @BindView(R.id.close)
+    View closeV;
+    @Inject
+    RxPermissions mRxPermissions;
 
 
     @Override
@@ -64,10 +74,13 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        protocoTV.setText(Html.fromHtml("<font color='#FF9A9A9A'>同意</font> 和 <font color='#FF5FBFE3'>《创享会员实用协议》</font>"));
+        protocoTV.setText(Html.fromHtml("<font color='#9A9A9A'>同意</font><font color='#5FBFE3'>《创享会员实用协议》</font>"));
         forgetV.setOnClickListener(this);
         registerV.setOnClickListener(this);
         protocoTV.setOnClickListener(this);
+        loginV.setOnClickListener(this);
+        closeV.setOnClickListener(this);
+        getValidateV.setOnClickListener(this);
         tabLayout.addTab(tabLayout.newTab().setText("账户登录"));
         tabLayout.addTab(tabLayout.newTab().setText("手机登录"));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -86,6 +99,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
             }
         });
+        mPresenter.requestPermissions();
     }
 
     private void changeTabToPhone(boolean byPhone) {
@@ -137,8 +151,42 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 ArmsUtils.startActivity(RegisterActivity.class);
                 break;
             case R.id.protocol:
-                ArmsUtils.startActivity(ForgetActivity.class);
+                ArmsUtils.startActivity(MainActivity.class);
+                break;
+            case R.id.login:
+                login();
+                break;
+            case R.id.get_validate:
+                mPresenter.getVerifyForUser(userNameET.getText().toString());
+                break;
+            case R.id.close:
+                killMyself();
                 break;
         }
+    }
+
+    private void login() {
+        if (tabLayout.getSelectedTabPosition() == 0) {
+            // 用户名登录
+            mPresenter.loginByUser(userNameET.getText().toString(), passwordET.getText().toString());
+        } else {
+            // 短信验证码登录
+            mPresenter.loginByPhone(userNameET.getText().toString(), validateET.getText().toString());
+        }
+    }
+
+    @Override
+    public Activity getActivity() {
+        return this;
+    }
+
+    @Override
+    public void goMainPage() {
+        ArmsUtils.startActivity(MainActivity.class);
+    }
+
+    @Override
+    public RxPermissions getRxPermissions() {
+        return mRxPermissions;
     }
 }

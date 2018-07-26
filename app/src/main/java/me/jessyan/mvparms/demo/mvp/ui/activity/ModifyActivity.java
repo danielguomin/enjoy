@@ -3,11 +3,14 @@ package me.jessyan.mvparms.demo.mvp.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.view.View;
+import android.widget.EditText;
 
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 
+import butterknife.BindView;
 import me.jessyan.mvparms.demo.R;
 import me.jessyan.mvparms.demo.di.component.DaggerModifyComponent;
 import me.jessyan.mvparms.demo.di.module.ModifyModule;
@@ -17,8 +20,15 @@ import me.jessyan.mvparms.demo.mvp.presenter.ModifyPresenter;
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
 
-public class ModifyActivity extends BaseActivity<ModifyPresenter> implements ModifyContract.View {
-
+public class ModifyActivity extends BaseActivity<ModifyPresenter> implements ModifyContract.View, View.OnClickListener {
+    @BindView(R.id.back)
+    View backV;
+    @BindView(R.id.modify)
+    View modifyV;
+    @BindView(R.id.password)
+    EditText passWordET;
+    @BindView(R.id.repeat)
+    EditText repeatET;
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
@@ -37,6 +47,8 @@ public class ModifyActivity extends BaseActivity<ModifyPresenter> implements Mod
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        backV.setOnClickListener(this);
+        modifyV.setOnClickListener(this);
 
     }
 
@@ -69,4 +81,15 @@ public class ModifyActivity extends BaseActivity<ModifyPresenter> implements Mod
     }
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.back:
+                killMyself();
+                break;
+            case R.id.modify:
+                mPresenter.modify(passWordET.getText().toString(), repeatET.getText().toString());
+                break;
+        }
+    }
 }

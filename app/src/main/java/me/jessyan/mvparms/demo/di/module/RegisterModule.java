@@ -3,6 +3,7 @@ package me.jessyan.mvparms.demo.di.module;
 import android.support.v7.widget.RecyclerView;
 
 import com.jess.arms.di.scope.ActivityScope;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,12 @@ public class RegisterModule {
     @Provides
     RegisterContract.View provideRegisterView() {
         return this.view;
+    }
+
+    @ActivityScope
+    @Provides
+    RxPermissions provideRxPermissions() {
+        return new RxPermissions(view.getActivity());
     }
 
     @ActivityScope

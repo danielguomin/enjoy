@@ -23,7 +23,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Message;
 import android.support.design.widget.Snackbar;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.Toast;
 
 import com.jess.arms.base.delegate.AppLifecycles;
 
@@ -155,8 +157,20 @@ public final class AppManager {
             Timber.tag(TAG).w("mCurrentActivity == null when showSnackbar(String,boolean)");
             return;
         }
-        View view = getCurrentActivity().getWindow().getDecorView().findViewById(android.R.id.content);
-        Snackbar.make(view, message, isLong ? Snackbar.LENGTH_LONG : Snackbar.LENGTH_SHORT).show();
+//        View view = getCurrentActivity().getWindow().getDecorView().findViewById(android.R.id.content);
+//        Snackbar.make(view, message, isLong ? Snackbar.LENGTH_LONG : Snackbar.LENGTH_SHORT).show();
+
+//        SnackbarUtils.Short(getCurrentActivity().getWindow().getDecorView(),message)
+//                .gravityFrameLayout(Gravity.CENTER)
+//                .radius(20)
+//                .show();
+
+        Toast toast = Toast.makeText(getCurrentActivity(), message, isLong ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT);
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        View view = toast.getView();
+        view.setBackgroundResource(android.R.color.white);
+        toast.setView(view);
+        toast.show();
     }
 
 

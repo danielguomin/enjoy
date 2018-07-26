@@ -9,7 +9,14 @@ import com.jess.arms.mvp.BaseModel;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
 import me.jessyan.mvparms.demo.mvp.contract.LoginContract;
+import me.jessyan.mvparms.demo.mvp.model.api.service.LoginAndRegisterService;
+import me.jessyan.mvparms.demo.mvp.model.entity.BaseResponse;
+import me.jessyan.mvparms.demo.mvp.model.entity.LoginByPhoneRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.LoginByUserRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.RegisterResponse;
+import me.jessyan.mvparms.demo.mvp.model.entity.VeritfyRequest;
 
 
 @ActivityScope
@@ -31,4 +38,21 @@ public class LoginModel extends BaseModel implements LoginContract.Model {
         this.mApplication = null;
     }
 
+    @Override
+    public Observable<BaseResponse> getVerifyForUser(VeritfyRequest veritfyRequest) {
+        return mRepositoryManager.obtainRetrofitService(LoginAndRegisterService.class)
+                .getVerifyForUser(veritfyRequest);
+    }
+
+    @Override
+    public Observable<RegisterResponse> loginByPhone(LoginByPhoneRequest loginByPhoneRequest) {
+        return mRepositoryManager.obtainRetrofitService(LoginAndRegisterService.class)
+                .loginByPhone(loginByPhoneRequest);
+    }
+
+    @Override
+    public Observable<RegisterResponse> loginByUserName(LoginByUserRequest loginByUserRequest) {
+        return mRepositoryManager.obtainRetrofitService(LoginAndRegisterService.class)
+                .loginByUser(loginByUserRequest);
+    }
 }

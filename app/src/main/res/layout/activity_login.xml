@@ -10,6 +10,19 @@
         android:layout_height="196dp"
         android:background="@mipmap/login_logo_bg">
 
+        <LinearLayout
+            android:id="@+id/close"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:gravity="center">
+
+            <View
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:background="@mipmap/close" />
+
+        </LinearLayout>
+
         <View
             android:layout_width="89dp"
             android:layout_height="89dp"

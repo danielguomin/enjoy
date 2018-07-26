@@ -3,7 +3,7 @@ ext {
     android = [
                compileSdkVersion       : 27,
                buildToolsVersion       : "27.0.3",
-               minSdkVersion           : 14,
+               minSdkVersion           : 16,
                targetSdkVersion        : 27,
                versionCode             : 156,
                versionName             : "2.4.1"
@@ -49,9 +49,12 @@ ext {
                 "pickerview"               : "com.contrarywind:Android-PickerView:3.2.5",
                 "photoview"                : "com.github.chrisbanes.photoview:library:1.2.3",
                 "numberprogressbar"        : "com.daimajia.numberprogressbar:library:1.2@aar",
+                "bottomBarLayout"          : "com.github.chaychan:BottomBarLayout:1.1.1",
                 "nineoldandroids"          : "com.nineoldandroids:library:2.4.0",
                 "paginate"                 : "com.github.markomilos:paginate:0.5.1",
                 "vlayout"                  : "com.alibaba.android:vlayout:1.1.0@aar",
+                "banner"                   : "com.youth.banner:banner:1.4.10",
+
 
                 //rx1
                 "rxandroid"                : "io.reactivex:rxandroid:1.2.1",

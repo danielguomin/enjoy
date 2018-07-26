@@ -9,26 +9,30 @@ import com.jess.arms.mvp.BasePresenter;
 
 import javax.inject.Inject;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import me.jessyan.mvparms.demo.mvp.contract.ModifyContract;
+import me.jessyan.mvparms.demo.mvp.model.entity.BaseResponse;
+import me.jessyan.mvparms.demo.mvp.model.entity.ModifyRequest;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 
 
 @ActivityScope
 public class ModifyPresenter extends BasePresenter<ModifyContract.Model, ModifyContract.View> {
-    private RxErrorHandler mErrorHandler;
-    private Application mApplication;
-    private ImageLoader mImageLoader;
-    private AppManager mAppManager;
+    @Inject
+    RxErrorHandler mErrorHandler;
+    @Inject
+    AppManager mAppManager;
+    @Inject
+    Application mApplication;
+    @Inject
+    ImageLoader mImageLoader;
 
     @Inject
-    public ModifyPresenter(ModifyContract.Model model, ModifyContract.View rootView
-            , RxErrorHandler handler, Application application
-            , ImageLoader imageLoader, AppManager appManager) {
+    public ModifyPresenter(ModifyContract.Model model, ModifyContract.View rootView) {
         super(model, rootView);
-        this.mErrorHandler = handler;
-        this.mApplication = application;
-        this.mImageLoader = imageLoader;
-        this.mAppManager = appManager;
+
     }
 
     @Override
@@ -38,6 +42,26 @@ public class ModifyPresenter extends BasePresenter<ModifyContract.Model, ModifyC
         this.mAppManager = null;
         this.mImageLoader = null;
         this.mApplication = null;
+    }
+
+    public void modify(String password, String confirmPassword) {
+        ModifyRequest request = new ModifyRequest();
+        request.setPassword(password);
+        request.setConfirmPassword(confirmPassword);
+        request.setToken("");
+
+        mModel.modify(request)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<BaseResponse>() {
+                    @Override
+                    public void accept(BaseResponse baseResponse) throws Exception {
+                        mRootView.showMessage(baseResponse.getRetDesc());
+                        if (baseResponse.isSuccess()) {
+                            mRootView.killMyself();
+                        }
+                    }
+                });
     }
 
 }

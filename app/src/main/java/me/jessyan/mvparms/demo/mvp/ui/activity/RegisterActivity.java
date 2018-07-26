@@ -19,6 +19,7 @@ import com.jess.arms.base.BaseActivity;
 import com.jess.arms.base.DefaultAdapter;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import javax.inject.Inject;
 
@@ -54,6 +55,8 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     EditText contentET;
     @Inject
     RecyclerView.Adapter mAdapter;
+    @Inject
+    RxPermissions mRxPermissions;
 
     private PopupWindow popupWindow;
 
@@ -74,8 +77,9 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
 
     @Override
     public void initData(Bundle savedInstanceState) {
-        infoTV.setText(Html.fromHtml("<font color='#FF666666'>已注册过，</font> 和 <font color='#FF5FBFE3'>登录</font>"));
+        infoTV.setText(Html.fromHtml("<font color='#666666'>已注册过，</font> <font color='#5FBFE3'>登录</font>"));
         backV.setOnClickListener(this);
+        infoTV.setOnClickListener(this);
         choiceV.setOnClickListener(this);
         getValidateV.setOnClickListener(this);
         registerTV.setOnClickListener(this);
@@ -117,13 +121,26 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
                 killMyself();
                 break;
             case R.id.get_validate:
+                getVerify();
                 break;
             case R.id.register:
+                register();
                 break;
             case R.id.choice:
                 showType();
                 break;
+            case R.id.info:
+                killMyself();
+                break;
         }
+    }
+
+    private void register() {
+        mPresenter.register(mobileET.getText().toString(), passwordET.getText().toString(), validateET.getText().toString(), String.valueOf(1), contentET.getText().toString());
+    }
+
+    private void getVerify() {
+        mPresenter.getVerify(mobileET.getText().toString());
     }
 
     private void showType() {
@@ -155,5 +172,15 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
     @Override
     public Activity getActivity() {
         return this;
+    }
+
+    @Override
+    public void goMainPage() {
+        ArmsUtils.startActivity(MainActivity.class);
+    }
+
+    @Override
+    public RxPermissions getRxPermissions() {
+        return mRxPermissions;
     }
 }

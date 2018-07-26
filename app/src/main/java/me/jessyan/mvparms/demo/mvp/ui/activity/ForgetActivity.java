@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.widget.EditText;
 
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
@@ -22,6 +23,14 @@ import static com.jess.arms.utils.Preconditions.checkNotNull;
 public class ForgetActivity extends BaseActivity<ForgetPresenter> implements ForgetContract.View, View.OnClickListener {
     @BindView(R.id.back)
     View backV;
+    @BindView(R.id.mobile)
+    EditText mobileET;
+    @BindView(R.id.vertify)
+    EditText veritfyET;
+    @BindView(R.id.get_vertify)
+    View getVertifyV;
+    @BindView(R.id.forget)
+    View forgetV;
 
     @Override
     public void setupActivityComponent(AppComponent appComponent) {
@@ -41,6 +50,8 @@ public class ForgetActivity extends BaseActivity<ForgetPresenter> implements For
     @Override
     public void initData(Bundle savedInstanceState) {
         backV.setOnClickListener(this);
+        getVertifyV.setOnClickListener(this);
+        forgetV.setOnClickListener(this);
     }
 
 
@@ -77,6 +88,12 @@ public class ForgetActivity extends BaseActivity<ForgetPresenter> implements For
         switch (v.getId()) {
             case R.id.back:
                 killMyself();
+                break;
+            case R.id.forget:
+                mPresenter.find(mobileET.getText().toString(), veritfyET.getText().toString());
+                break;
+            case R.id.get_vertify:
+                mPresenter.getVerifyForFind(mobileET.getText().toString());
                 break;
         }
     }

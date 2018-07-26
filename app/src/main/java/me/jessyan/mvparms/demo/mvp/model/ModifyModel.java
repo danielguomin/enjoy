@@ -9,7 +9,11 @@ import com.jess.arms.mvp.BaseModel;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
 import me.jessyan.mvparms.demo.mvp.contract.ModifyContract;
+import me.jessyan.mvparms.demo.mvp.model.api.service.LoginAndRegisterService;
+import me.jessyan.mvparms.demo.mvp.model.entity.BaseResponse;
+import me.jessyan.mvparms.demo.mvp.model.entity.ModifyRequest;
 
 
 @ActivityScope
@@ -31,4 +35,9 @@ public class ModifyModel extends BaseModel implements ModifyContract.Model {
         this.mApplication = null;
     }
 
+    @Override
+    public Observable<BaseResponse> modify(ModifyRequest request) {
+        return mRepositoryManager.obtainRetrofitService(LoginAndRegisterService.class)
+                .modify(request);
+    }
 }

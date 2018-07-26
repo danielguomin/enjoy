@@ -10,13 +10,18 @@
         android:layout_height="196dp"
         android:background="@mipmap/login_logo_bg">
 
-        <View
-            android:layout_width="10dp"
-            android:layout_height="17dp"
-            android:layout_gravity="left|top"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:background="@mipmap/back" />
+        <LinearLayout
+            android:id="@+id/back"
+            android:layout_width="40dp"
+            android:layout_height="47dp"
+            android:gravity="center">
+
+            <View
+                android:layout_width="10dp"
+                android:layout_height="17dp"
+                android:background="@mipmap/back" />
+
+        </LinearLayout>
 
         <View
             android:layout_width="89dp"
@@ -84,18 +89,11 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <LinearLayout
-                android:id="@+id/back"
-                android:layout_width="40dp"
-                android:layout_height="47dp"
-                android:gravity="center">
-
-                <View
-                    android:layout_width="10dp"
-                    android:layout_height="17dp"
-                    android:background="@mipmap/back" />
-
-            </LinearLayout>
+            <View
+                android:layout_width="17dp"
+                android:layout_height="19dp"
+                android:layout_alignParentLeft="true"
+                android:background="@mipmap/password" />
 
             <EditText
                 android:id="@+id/repeat"

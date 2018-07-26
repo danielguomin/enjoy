@@ -4,6 +4,13 @@ import android.app.Activity;
 
 import com.jess.arms.mvp.IModel;
 import com.jess.arms.mvp.IView;
+import com.tbruyelle.rxpermissions2.RxPermissions;
+
+import io.reactivex.Observable;
+import me.jessyan.mvparms.demo.mvp.model.entity.BaseResponse;
+import me.jessyan.mvparms.demo.mvp.model.entity.RegisterRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.RegisterResponse;
+import me.jessyan.mvparms.demo.mvp.model.entity.VeritfyRequest;
 
 
 public interface RegisterContract {
@@ -11,10 +18,17 @@ public interface RegisterContract {
     interface View extends IView {
         Activity getActivity();
 
+        void goMainPage();
+
+        //申请权限
+        RxPermissions getRxPermissions();
+
     }
 
     //Model层定义接口,外部只需关心Model返回的数据,无需关心内部细节,即是否使用缓存
     interface Model extends IModel {
+        Observable<RegisterResponse> register(RegisterRequest registerRequest);
 
+        Observable<BaseResponse> getVerify(VeritfyRequest veritfyRequest);
     }
 }

@@ -57,6 +57,7 @@ import static com.jess.arms.integration.AppManager.START_ACTIVITY;
  */
 public class ArmsUtils {
     static public Toast mToast;
+    static Context context;
 
 
     private ArmsUtils() {
@@ -457,6 +458,14 @@ public class ArmsUtils {
         Preconditions.checkNotNull(context, "%s cannot be null", Context.class.getName());
         Preconditions.checkState(context.getApplicationContext() instanceof App, "Application does not implements App");
         return ((App) context.getApplicationContext()).getAppComponent();
+    }
+
+    public static Context getContext() {
+        return context;
+    }
+
+    public static void setContext(Context context) {
+        ArmsUtils.context = context;
     }
 
 }

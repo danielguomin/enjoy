@@ -9,7 +9,13 @@ import com.jess.arms.mvp.BaseModel;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
 import me.jessyan.mvparms.demo.mvp.contract.RegisterContract;
+import me.jessyan.mvparms.demo.mvp.model.api.service.LoginAndRegisterService;
+import me.jessyan.mvparms.demo.mvp.model.entity.BaseResponse;
+import me.jessyan.mvparms.demo.mvp.model.entity.RegisterRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.RegisterResponse;
+import me.jessyan.mvparms.demo.mvp.model.entity.VeritfyRequest;
 
 
 @ActivityScope
@@ -29,6 +35,18 @@ public class RegisterModel extends BaseModel implements RegisterContract.Model {
         super.onDestroy();
         this.mGson = null;
         this.mApplication = null;
+    }
+
+    @Override
+    public Observable<RegisterResponse> register(RegisterRequest registerRequest) {
+        return mRepositoryManager.obtainRetrofitService(LoginAndRegisterService.class)
+                .register(registerRequest);
+    }
+
+    @Override
+    public Observable<BaseResponse> getVerify(VeritfyRequest veritfyRequest) {
+        return mRepositoryManager.obtainRetrofitService(LoginAndRegisterService.class)
+                .getVerify(veritfyRequest);
     }
 
 }

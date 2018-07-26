@@ -60,6 +60,7 @@
                 android:layout_marginLeft="9dp"
                 android:background="@android:color/transparent"
                 android:hint="请输入手机号"
+                android:text="18600474095"
                 android:textSize="13sp" />
 
         </LinearLayout>
@@ -103,6 +104,7 @@
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:hint="请输入验证码"
+                android:text="1234"
                 android:textSize="13sp" />
 
             <TextView
@@ -154,6 +156,7 @@
                 android:layout_marginLeft="9dp"
                 android:background="@android:color/transparent"
                 android:hint="请输入密码"
+                android:text="123456"
                 android:textSize="13sp" />
 
         </LinearLayout>

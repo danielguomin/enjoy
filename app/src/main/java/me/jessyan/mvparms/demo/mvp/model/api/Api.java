@@ -25,6 +25,6 @@ package me.jessyan.mvparms.demo.mvp.model.api;
  * ================================================
  */
 public interface Api {
-    String APP_DOMAIN = "https://api.github.com";
-    String RequestSuccess = "0";
+    String APP_DOMAIN = "http://api.donhonet.net/conson-shop/";
+    int RequestSuccess = 0;
 }

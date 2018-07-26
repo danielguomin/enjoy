@@ -55,6 +55,7 @@ public class BaseApplication extends Application implements App {
     @Override
     public void onCreate() {
         super.onCreate();
+        ArmsUtils.setContext(this);
         if (mAppDelegate != null)
             this.mAppDelegate.onCreate(this);
     }

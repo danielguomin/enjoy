@@ -23,11 +23,16 @@ import com.jess.arms.http.GlobalHttpHandler;
 import com.jess.arms.http.log.RequestInterceptor;
 import com.jess.arms.utils.ArmsUtils;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.List;
 
 import me.jessyan.mvparms.demo.mvp.model.entity.User;
+import okhttp3.FormBody;
 import okhttp3.Interceptor;
+import okhttp3.MediaType;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import timber.log.Timber;
 
@@ -96,6 +101,31 @@ public class GlobalHttpHandlerImpl implements GlobalHttpHandler {
         /* 如果需要再请求服务器之前做一些操作, 则重新返回一个做过操作的的 Request 如增加 Header, 不做操作则直接返回参数 request
         return chain.request().newBuilder().header("token", tokenId)
                               .build(); */
+
+        RequestBody requestBody = request.body();
+
+        if (null != requestBody) {
+            okio.Buffer buffer = new okio.Buffer();
+            try {
+                requestBody.writeTo(buffer);
+                Charset charset = Charset.forName("UTF-8");
+                MediaType contentType = requestBody.contentType();
+                if (contentType != null) {
+                    charset = contentType.charset(charset);
+                }
+                String messageValue = buffer.readString(charset);
+
+                String signValue = ArmsUtils.encodeToMD5(messageValue + "123456");
+
+                FormBody formBody2 = new FormBody.Builder().add("message", messageValue).add("sign", signValue).build();
+
+                return chain.request().newBuilder().post(formBody2).build();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
         return request;
     }
 }

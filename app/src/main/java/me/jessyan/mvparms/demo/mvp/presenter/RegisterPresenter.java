@@ -9,26 +9,31 @@ import com.jess.arms.mvp.BasePresenter;
 
 import javax.inject.Inject;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import me.jessyan.mvparms.demo.mvp.contract.RegisterContract;
+import me.jessyan.mvparms.demo.mvp.model.entity.BaseResponse;
+import me.jessyan.mvparms.demo.mvp.model.entity.RegisterRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.RegisterResponse;
+import me.jessyan.mvparms.demo.mvp.model.entity.VeritfyRequest;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 
 
 @ActivityScope
 public class RegisterPresenter extends BasePresenter<RegisterContract.Model, RegisterContract.View> {
-    private RxErrorHandler mErrorHandler;
-    private Application mApplication;
-    private ImageLoader mImageLoader;
-    private AppManager mAppManager;
+    @Inject
+    RxErrorHandler mErrorHandler;
+    @Inject
+    AppManager mAppManager;
+    @Inject
+    Application mApplication;
+    @Inject
+    ImageLoader mImageLoader;
 
     @Inject
-    public RegisterPresenter(RegisterContract.Model model, RegisterContract.View rootView
-            , RxErrorHandler handler, Application application
-            , ImageLoader imageLoader, AppManager appManager) {
+    public RegisterPresenter(RegisterContract.Model model, RegisterContract.View rootView) {
         super(model, rootView);
-        this.mErrorHandler = handler;
-        this.mApplication = application;
-        this.mImageLoader = imageLoader;
-        this.mAppManager = appManager;
     }
 
     @Override
@@ -40,11 +45,47 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.Model, Reg
         this.mApplication = null;
     }
 
-    public void register(String mobile, String password, String verifyCode, String type, String code) {
+    public void register(String mobile, String password, String verify, String type, String code) {
 
+        RegisterRequest request = new RegisterRequest();
+        request.setMobile(mobile);
+        request.setPassword(password);
+        request.setVerifyCode(verify);
+        request.setType(type);
+        request.setCode(code);
+
+        mModel.register(request)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<RegisterResponse>() {
+                    @Override
+                    public void accept(RegisterResponse registerResponse) throws Exception {
+                        if (registerResponse.isSuccess()) {
+                            mRootView.killMyself();
+                            mRootView.goMainPage();
+                        } else {
+                            mRootView.showMessage(registerResponse.getRetDesc());
+                        }
+                    }
+                });
     }
 
-    public void getVerifyCode(String mobile) {
 
+    public void getVerify(String mobile) {
+
+        VeritfyRequest request = new VeritfyRequest();
+        request.setMobile(mobile);
+
+        mModel.getVerify(request)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<BaseResponse>() {
+                    @Override
+                    public void accept(BaseResponse baseResponse) throws Exception {
+                        if (!baseResponse.isSuccess()) {
+                            mRootView.showMessage(baseResponse.getRetDesc());
+                        }
+                    }
+                });
     }
 }
