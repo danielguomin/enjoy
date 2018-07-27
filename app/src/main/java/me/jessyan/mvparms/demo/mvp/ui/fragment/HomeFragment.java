@@ -8,7 +8,6 @@ import android.support.design.widget.TabLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.di.component.AppComponent;
@@ -20,6 +19,8 @@ import me.jessyan.mvparms.demo.di.component.DaggerHomeComponent;
 import me.jessyan.mvparms.demo.di.module.HomeModule;
 import me.jessyan.mvparms.demo.mvp.contract.HomeContract;
 import me.jessyan.mvparms.demo.mvp.presenter.HomePresenter;
+import me.jessyan.mvparms.demo.mvp.ui.activity.CityActivity;
+import me.jessyan.mvparms.demo.mvp.ui.activity.SearchActivity;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
@@ -33,7 +34,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     @BindView(R.id.city)
     View cityV;
     @BindView(R.id.search)
-    EditText serachET;
+    View serachV;
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
@@ -57,9 +58,9 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
         tabLayout.addTab(tabLayout.newTab().setText("生美/科美"));
         tabLayout.addTab(tabLayout.newTab().setText("医美"));
         tabLayout.addTab(tabLayout.newTab().setText("商城"));
-
         cityV.setOnClickListener(this);
         messageV.setOnClickListener(this);
+        serachV.setOnClickListener(this);
     }
 
     @Override
@@ -101,6 +102,10 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
             case R.id.message:
                 break;
             case R.id.city:
+                ArmsUtils.startActivity(CityActivity.class);
+                break;
+            case R.id.search:
+                ArmsUtils.startActivity(SearchActivity.class);
                 break;
         }
     }

@@ -46,6 +46,9 @@
         <activity android:name=".mvp.ui.activity.ModifyActivity" />
         <activity android:name=".mvp.ui.activity.RegisterActivity" />
         <activity android:name=".mvp.ui.activity.MainActivity" />
+        <activity android:name=".mvp.ui.activity.CityActivity" />
+        <activity android:name=".mvp.ui.activity.SearchActivity" />
+        <activity android:name=".mvp.ui.activity.SerachResultActivity"></activity>
     </application>
 
 </manifest>
