@@ -29,4 +29,12 @@ import org.simple.eventbus.EventBus;
  */
 public interface EventBusTags {
 
+    /**
+     * 城市切换
+     */
+    String CITY_CHANGE_EVENT = "city_change_tag";
+    /**
+     * 登录状态改变
+     */
+    String LOGIN_STATUS_CHANGE_EVENT = "login_status_change_Event";
 }

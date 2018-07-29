@@ -9,7 +9,11 @@ import com.jess.arms.mvp.BaseModel;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
 import me.jessyan.mvparms.demo.mvp.contract.HomeContract;
+import me.jessyan.mvparms.demo.mvp.model.api.service.MainService;
+import me.jessyan.mvparms.demo.mvp.model.entity.request.HomeRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.response.HomeResponse;
 
 
 @ActivityScope
@@ -29,6 +33,12 @@ public class HomeModel extends BaseModel implements HomeContract.Model {
         super.onDestroy();
         this.mGson = null;
         this.mApplication = null;
+    }
+
+    @Override
+    public Observable<HomeResponse> getHomeInfo(HomeRequest request) {
+        return mRepositoryManager.obtainRetrofitService(MainService.class)
+                .getHomeInfo(request);
     }
 
 }

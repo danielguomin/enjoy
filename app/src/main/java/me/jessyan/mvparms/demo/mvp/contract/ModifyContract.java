@@ -4,8 +4,8 @@ import com.jess.arms.mvp.IModel;
 import com.jess.arms.mvp.IView;
 
 import io.reactivex.Observable;
-import me.jessyan.mvparms.demo.mvp.model.entity.BaseResponse;
-import me.jessyan.mvparms.demo.mvp.model.entity.ModifyRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.request.ModifyRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.response.BaseResponse;
 
 
 public interface ModifyContract {

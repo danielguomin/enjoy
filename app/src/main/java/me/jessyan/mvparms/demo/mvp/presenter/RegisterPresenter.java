@@ -5,7 +5,9 @@ import android.app.Application;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
+import com.jess.arms.integration.cache.Cache;
 import com.jess.arms.mvp.BasePresenter;
+import com.jess.arms.utils.ArmsUtils;
 
 import javax.inject.Inject;
 
@@ -13,10 +15,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import me.jessyan.mvparms.demo.mvp.contract.RegisterContract;
-import me.jessyan.mvparms.demo.mvp.model.entity.BaseResponse;
-import me.jessyan.mvparms.demo.mvp.model.entity.RegisterRequest;
-import me.jessyan.mvparms.demo.mvp.model.entity.RegisterResponse;
-import me.jessyan.mvparms.demo.mvp.model.entity.VeritfyRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.request.RegisterRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.request.VeritfyRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.response.BaseResponse;
+import me.jessyan.mvparms.demo.mvp.model.entity.response.RegisterResponse;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 
 
@@ -61,6 +63,9 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.Model, Reg
                     @Override
                     public void accept(RegisterResponse registerResponse) throws Exception {
                         if (registerResponse.isSuccess()) {
+                            Cache<String, Object> cache = ArmsUtils.obtainAppComponentFromContext(mApplication).extras();
+                            cache.put("token", registerResponse.getToken());
+                            cache.put("signkey", registerResponse.getSignkey());
                             mRootView.killMyself();
                             mRootView.goMainPage();
                         } else {

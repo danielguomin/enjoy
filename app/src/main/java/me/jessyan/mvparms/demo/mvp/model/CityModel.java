@@ -12,8 +12,8 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 import me.jessyan.mvparms.demo.mvp.contract.CityContract;
 import me.jessyan.mvparms.demo.mvp.model.api.service.MainService;
-import me.jessyan.mvparms.demo.mvp.model.entity.CityRequest;
-import me.jessyan.mvparms.demo.mvp.model.entity.CityResponse;
+import me.jessyan.mvparms.demo.mvp.model.entity.request.SimpleRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.response.CityResponse;
 
 
 @ActivityScope
@@ -36,7 +36,7 @@ public class CityModel extends BaseModel implements CityContract.Model {
     }
 
     @Override
-    public Observable<CityResponse> getCity(CityRequest request) {
+    public Observable<CityResponse> getCity(SimpleRequest request) {
         return mRepositoryManager.obtainRetrofitService(MainService.class)
                 .getCities(request);
     }

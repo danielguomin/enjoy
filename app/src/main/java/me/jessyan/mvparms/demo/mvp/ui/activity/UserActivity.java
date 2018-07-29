@@ -130,6 +130,7 @@ public class UserActivity extends BaseActivity<UserPresenter> implements UserCon
         ArmsUtils.startActivity(intent);
     }
 
+
     @Override
     public void killMyself() {
         finish();

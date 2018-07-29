@@ -7,10 +7,10 @@ import com.jess.arms.mvp.IView;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import io.reactivex.Observable;
-import me.jessyan.mvparms.demo.mvp.model.entity.BaseResponse;
-import me.jessyan.mvparms.demo.mvp.model.entity.RegisterRequest;
-import me.jessyan.mvparms.demo.mvp.model.entity.RegisterResponse;
-import me.jessyan.mvparms.demo.mvp.model.entity.VeritfyRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.request.RegisterRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.request.VeritfyRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.response.BaseResponse;
+import me.jessyan.mvparms.demo.mvp.model.entity.response.RegisterResponse;
 
 
 public interface RegisterContract {

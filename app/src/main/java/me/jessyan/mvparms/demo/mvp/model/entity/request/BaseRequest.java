@@ -1,4 +1,4 @@
-package me.jessyan.mvparms.demo.mvp.model.entity;
+package me.jessyan.mvparms.demo.mvp.model.entity.request;
 
 
 import com.jess.arms.utils.ArmsUtils;

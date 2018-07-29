@@ -12,8 +12,8 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 import me.jessyan.mvparms.demo.mvp.contract.ModifyContract;
 import me.jessyan.mvparms.demo.mvp.model.api.service.LoginAndRegisterService;
-import me.jessyan.mvparms.demo.mvp.model.entity.BaseResponse;
-import me.jessyan.mvparms.demo.mvp.model.entity.ModifyRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.request.ModifyRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.response.BaseResponse;
 
 
 @ActivityScope

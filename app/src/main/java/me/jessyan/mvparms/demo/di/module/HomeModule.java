@@ -32,4 +32,5 @@ public class HomeModule {
     HomeContract.Model provideHomeModel(HomeModel model) {
         return model;
     }
+
 }

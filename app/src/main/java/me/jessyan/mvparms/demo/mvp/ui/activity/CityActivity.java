@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.jess.arms.base.BaseActivity;
 import com.jess.arms.di.component.AppComponent;
+import com.jess.arms.integration.cache.Cache;
 import com.jess.arms.utils.ArmsUtils;
 import com.yu.bundles.extended.recyclerview.ExtendedHolder;
 import com.yu.bundles.extended.recyclerview.ExtendedHolderFactory;
@@ -17,14 +18,17 @@ import com.yu.bundles.extended.recyclerview.ExtendedNode;
 import com.yu.bundles.extended.recyclerview.ExtendedRecyclerViewBuilder;
 import com.yu.bundles.extended.recyclerview.ExtendedRecyclerViewHelper;
 
+import org.simple.eventbus.EventBus;
+
 import java.util.List;
 
 import butterknife.BindView;
 import me.jessyan.mvparms.demo.R;
+import me.jessyan.mvparms.demo.app.EventBusTags;
 import me.jessyan.mvparms.demo.di.component.DaggerCityComponent;
 import me.jessyan.mvparms.demo.di.module.CityModule;
 import me.jessyan.mvparms.demo.mvp.contract.CityContract;
-import me.jessyan.mvparms.demo.mvp.model.entity.CityResponse;
+import me.jessyan.mvparms.demo.mvp.model.entity.Area;
 import me.jessyan.mvparms.demo.mvp.presenter.CityPresenter;
 import me.jessyan.mvparms.demo.mvp.ui.holder.CityItemHolder;
 
@@ -100,8 +104,34 @@ public class CityActivity extends BaseActivity<CityPresenter> implements CityCon
     public void onRefresh(List<ExtendedNode> nodeList) {
         CityItemHolder.OnChoiceListener onChoiceListener = new CityItemHolder.OnChoiceListener() {
             @Override
-            public void onChoice(CityResponse.Area area) {
-                System.out.println("Area " + area);
+            public void onChoice(Area area) {
+                Cache<String, Object> cache = ArmsUtils.obtainAppComponentFromContext(getApplication()).extras();
+                switch (Integer.valueOf(area.getType())) {
+                    case 2: // province
+                        cache.put("province", area.getCode());
+                        break;
+                    case 3: // city
+                        cache.put("city", area.getCode());
+                        for (ExtendedNode<Area> node : nodeList) {
+                            if (area.getParentId().equals(node.data.getId())) {
+                                cache.put("province", node.data.getCode());
+                            }
+                        }
+                        break;
+                    case 4: // county
+                        cache.put("county", area.getCode());
+                        for (ExtendedNode<Area> node : nodeList) {
+                            for (ExtendedNode<Area> child : node.getSons()) {
+                                if (area.getParentId().equals(child.data.getId())) {
+                                    cache.put("city", child.data.getCode());
+                                    cache.put("province", node.data.getCode());
+                                }
+                            }
+                        }
+                        break;
+                }
+                killMyself();
+                EventBus.getDefault().post(area, EventBusTags.CITY_CHANGE_EVENT);
             }
         };
         ExtendedRecyclerViewHelper extendedRecyclerViewHelper = ExtendedRecyclerViewBuilder.build(recyclerView)

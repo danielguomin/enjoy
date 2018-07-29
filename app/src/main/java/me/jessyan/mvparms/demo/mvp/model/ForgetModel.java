@@ -12,10 +12,10 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 import me.jessyan.mvparms.demo.mvp.contract.ForgetContract;
 import me.jessyan.mvparms.demo.mvp.model.api.service.LoginAndRegisterService;
-import me.jessyan.mvparms.demo.mvp.model.entity.BaseResponse;
-import me.jessyan.mvparms.demo.mvp.model.entity.ForgetRequest;
-import me.jessyan.mvparms.demo.mvp.model.entity.RegisterResponse;
-import me.jessyan.mvparms.demo.mvp.model.entity.VeritfyRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.request.ForgetRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.request.VeritfyRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.response.BaseResponse;
+import me.jessyan.mvparms.demo.mvp.model.entity.response.RegisterResponse;
 
 
 @ActivityScope

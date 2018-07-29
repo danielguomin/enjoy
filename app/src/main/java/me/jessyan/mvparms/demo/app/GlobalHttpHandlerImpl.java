@@ -119,7 +119,8 @@ public class GlobalHttpHandlerImpl implements GlobalHttpHandler {
 
                 FormBody formBody2 = new FormBody.Builder().add("message", messageValue).add("sign", signValue).build();
 
-                return chain.request().newBuilder().post(formBody2).build();
+                return chain.request().newBuilder()
+                        .addHeader("Content-Type", "application/json;charset=UTF-8").post(formBody2).build();
 
             } catch (IOException e) {
                 e.printStackTrace();

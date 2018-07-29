@@ -18,11 +18,11 @@
             android:layout_marginLeft="15dp"
             android:drawableRight="@mipmap/arrow_down"
             android:gravity="center"
-            android:text="北京  "
+            android:text="北京"
             android:textColor="#FF333333"
             android:textSize="13sp" />
 
-        <EditText
+        <TextView
             android:id="@+id/search"
             android:layout_width="0dp"
             android:layout_height="27dp"
@@ -42,23 +42,65 @@
             android:background="@mipmap/messge" />
     </LinearLayout>
 
-    <android.support.design.widget.TabLayout
-        android:id="@+id/tab"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:tabIndicatorColor="#FF50C8F5"
-        app:tabIndicatorHeight="2dp"
-        app:tabMode="fixed"
-        app:tabPaddingEnd="0dp"
-        app:tabPaddingStart="0dp"
-        app:tabSelectedTextColor="#FF50C8F5"
-        app:tabTextAppearance="@style/TabLayoutTextStyle"
-        app:tabTextColor="#FF666666" />
+        android:layout_height="match_parent">
 
-    <!-- ad -->
-    <com.youth.banner.Banner
-        android:id="@+id/banner"
-        android:layout_width="match_parent"
-        android:layout_height="182dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabOne"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:tabIndicatorColor="#FF50C8F5"
+                app:tabIndicatorHeight="2dp"
+                app:tabMode="fixed"
+                app:tabPaddingEnd="0dp"
+                app:tabPaddingStart="0dp"
+                app:tabSelectedTextColor="#FF50C8F5"
+                app:tabTextAppearance="@style/TabLayoutTextStyle"
+                app:tabTextColor="#FF666666" />
+
+            <!-- ad -->
+            <com.youth.banner.Banner
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="182dp" />
+
+            <LinearLayout
+                android:id="@+id/module_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:orientation="vertical" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/tabTwo"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    app:tabIndicatorColor="#FF5FBFE3"
+                    app:tabIndicatorHeight="2dp"
+                    app:tabMode="scrollable"
+                    app:tabPaddingEnd="0dp"
+                    app:tabPaddingStart="0dp"
+                    app:tabSelectedTextColor="#FF333333"
+                    app:tabTextAppearance="@style/TabLayoutTextStyle"
+                    app:tabTextColor="#FF333333" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recommend"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

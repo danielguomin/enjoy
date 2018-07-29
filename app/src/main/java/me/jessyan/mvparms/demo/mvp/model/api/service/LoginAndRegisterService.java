@@ -1,14 +1,14 @@
 package me.jessyan.mvparms.demo.mvp.model.api.service;
 
 import io.reactivex.Observable;
-import me.jessyan.mvparms.demo.mvp.model.entity.BaseResponse;
-import me.jessyan.mvparms.demo.mvp.model.entity.ForgetRequest;
-import me.jessyan.mvparms.demo.mvp.model.entity.LoginByPhoneRequest;
-import me.jessyan.mvparms.demo.mvp.model.entity.LoginByUserRequest;
-import me.jessyan.mvparms.demo.mvp.model.entity.ModifyRequest;
-import me.jessyan.mvparms.demo.mvp.model.entity.RegisterRequest;
-import me.jessyan.mvparms.demo.mvp.model.entity.RegisterResponse;
-import me.jessyan.mvparms.demo.mvp.model.entity.VeritfyRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.request.ForgetRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.request.LoginByPhoneRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.request.LoginByUserRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.request.ModifyRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.request.RegisterRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.request.VeritfyRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.response.BaseResponse;
+import me.jessyan.mvparms.demo.mvp.model.entity.response.RegisterResponse;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 

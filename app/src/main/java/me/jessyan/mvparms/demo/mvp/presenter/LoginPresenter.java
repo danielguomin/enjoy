@@ -5,7 +5,9 @@ import android.app.Application;
 import com.jess.arms.di.scope.ActivityScope;
 import com.jess.arms.http.imageloader.ImageLoader;
 import com.jess.arms.integration.AppManager;
+import com.jess.arms.integration.cache.Cache;
 import com.jess.arms.mvp.BasePresenter;
+import com.jess.arms.utils.ArmsUtils;
 import com.jess.arms.utils.PermissionUtil;
 
 import java.util.List;
@@ -16,11 +18,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import me.jessyan.mvparms.demo.mvp.contract.LoginContract;
-import me.jessyan.mvparms.demo.mvp.model.entity.BaseResponse;
-import me.jessyan.mvparms.demo.mvp.model.entity.LoginByPhoneRequest;
-import me.jessyan.mvparms.demo.mvp.model.entity.LoginByUserRequest;
-import me.jessyan.mvparms.demo.mvp.model.entity.RegisterResponse;
-import me.jessyan.mvparms.demo.mvp.model.entity.VeritfyRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.request.LoginByPhoneRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.request.LoginByUserRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.request.VeritfyRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.response.BaseResponse;
+import me.jessyan.mvparms.demo.mvp.model.entity.response.RegisterResponse;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 
 
@@ -81,6 +83,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.Model, LoginCont
                     @Override
                     public void accept(RegisterResponse response) throws Exception {
                         if (response.isSuccess()) {
+                            cacheUserInfo(response.getToken(), response.getSignkey());
                             mRootView.killMyself();
                             mRootView.goMainPage();
                         } else {
@@ -102,7 +105,11 @@ public class LoginPresenter extends BasePresenter<LoginContract.Model, LoginCont
                 .subscribe(new Consumer<RegisterResponse>() {
                     @Override
                     public void accept(RegisterResponse response) throws Exception {
-                        if (!response.isSuccess()) {
+                        if (response.isSuccess()) {
+                            cacheUserInfo(response.getToken(), response.getSignkey());
+                            mRootView.killMyself();
+                            mRootView.goMainPage();
+                        } else {
                             mRootView.showMessage(response.getRetDesc());
                         }
                     }
@@ -127,5 +134,11 @@ public class LoginPresenter extends BasePresenter<LoginContract.Model, LoginCont
                         }
                     }
                 });
+    }
+
+    private void cacheUserInfo(String token, String signkey) {
+        Cache<String, Object> cache = ArmsUtils.obtainAppComponentFromContext(mApplication).extras();
+        cache.put("token", token);
+        cache.put("signkey", signkey);
     }
 }

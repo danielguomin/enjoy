@@ -1,12 +1,11 @@
-package me.jessyan.mvparms.demo.mvp.model.entity;
+package me.jessyan.mvparms.demo.mvp.model.entity.request;
 
 /**
  * Created by guomin on 2018/7/25.
  */
 
-public class CityRequest extends BaseRequest {
-    private int cmd = 901;
-
+public class SimpleRequest extends BaseRequest {
+    private int cmd;
 
     public int getCmd() {
         return cmd;
@@ -18,7 +17,7 @@ public class CityRequest extends BaseRequest {
 
     @Override
     public String toString() {
-        return "CityRequest{" +
+        return "SimpleRequest{" +
                 "cmd=" + cmd +
                 '}';
     }

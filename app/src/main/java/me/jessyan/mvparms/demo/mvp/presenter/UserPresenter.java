@@ -144,7 +144,6 @@ public class UserPresenter extends BasePresenter<UserContract.Model, UserContrac
                 });
     }
 
-
     @Override
     public void onDestroy() {
         super.onDestroy();

@@ -11,9 +11,9 @@ import com.yu.bundles.extended.recyclerview.ExtendedRecyclerViewHelper;
 import java.util.ArrayList;
 
 import me.jessyan.mvparms.demo.R;
-import me.jessyan.mvparms.demo.mvp.model.entity.CityResponse;
+import me.jessyan.mvparms.demo.mvp.model.entity.Area;
 
-public class CityItemHolder extends ExtendedHolder<CityResponse.Area> implements View.OnLongClickListener, View.OnTouchListener {
+public class CityItemHolder extends ExtendedHolder<Area> implements View.OnLongClickListener, View.OnTouchListener {
     private TextView textView;
     private OnChoiceListener onChoiceListener;
 
@@ -26,7 +26,7 @@ public class CityItemHolder extends ExtendedHolder<CityResponse.Area> implements
     }
 
     @Override
-    public void setData(ExtendedNode<CityResponse.Area> node) {
+    public void setData(ExtendedNode<Area> node) {
         textView.setText(node.data.getName());
     }
 
@@ -47,7 +47,7 @@ public class CityItemHolder extends ExtendedHolder<CityResponse.Area> implements
                 ArrayList<ExtendedNode> sons = helper.getNode(getLayoutPosition()).getSons();
                 if (null == sons || (sons != null && sons.size() <= 0)) {
                     if (null != onChoiceListener) {
-                        onChoiceListener.onChoice((CityResponse.Area) helper.getNode(getLayoutPosition()).data);
+                        onChoiceListener.onChoice((Area) helper.getNode(getLayoutPosition()).data);
                     }
                 }
                 break;
@@ -56,6 +56,6 @@ public class CityItemHolder extends ExtendedHolder<CityResponse.Area> implements
     }
 
     public interface OnChoiceListener {
-        void onChoice(CityResponse.Area area);
+        void onChoice(Area area);
     }
 }

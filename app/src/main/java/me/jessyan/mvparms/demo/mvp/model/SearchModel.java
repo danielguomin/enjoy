@@ -9,7 +9,15 @@ import com.jess.arms.mvp.BaseModel;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
 import me.jessyan.mvparms.demo.mvp.contract.SearchContract;
+import me.jessyan.mvparms.demo.mvp.model.api.service.MainService;
+import me.jessyan.mvparms.demo.mvp.model.entity.request.BaseRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.request.HotRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.request.SimpleRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.response.BaseResponse;
+import me.jessyan.mvparms.demo.mvp.model.entity.response.CategoryResponse;
+import me.jessyan.mvparms.demo.mvp.model.entity.response.HotResponse;
 
 
 @ActivityScope
@@ -29,6 +37,23 @@ public class SearchModel extends BaseModel implements SearchContract.Model {
         super.onDestroy();
         this.mGson = null;
         this.mApplication = null;
+    }
+
+    @Override
+    public Observable<HotResponse> getHot(HotRequest baseRequest) {
+        return mRepositoryManager.obtainRetrofitService(MainService.class)
+                .getHot(baseRequest);
+    }
+
+    @Override
+    public Observable<BaseResponse> goSearch(BaseRequest baseRequest) {
+        return null;
+    }
+
+    @Override
+    public Observable<CategoryResponse> getCategory(SimpleRequest request) {
+        return mRepositoryManager.obtainRetrofitService(MainService.class)
+                .getCategory(request);
     }
 
 }

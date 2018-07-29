@@ -1,4 +1,4 @@
-package me.jessyan.mvparms.demo.mvp.model.entity;
+package me.jessyan.mvparms.demo.mvp.model.entity.response;
 
 /**
  * Created by guomin on 2018/7/25.

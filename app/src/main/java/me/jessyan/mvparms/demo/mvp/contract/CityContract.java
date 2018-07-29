@@ -7,8 +7,8 @@ import com.yu.bundles.extended.recyclerview.ExtendedNode;
 import java.util.List;
 
 import io.reactivex.Observable;
-import me.jessyan.mvparms.demo.mvp.model.entity.CityRequest;
-import me.jessyan.mvparms.demo.mvp.model.entity.CityResponse;
+import me.jessyan.mvparms.demo.mvp.model.entity.request.SimpleRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.response.CityResponse;
 
 
 public interface CityContract {
@@ -20,6 +20,6 @@ public interface CityContract {
     //Model层定义接口,外部只需关心Model返回的数据,无需关心内部细节,即是否使用缓存
     interface Model extends IModel {
 
-        Observable<CityResponse> getCity(CityRequest request);
+        Observable<CityResponse> getCity(SimpleRequest request);
     }
 }

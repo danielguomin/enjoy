@@ -17,8 +17,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 import me.jessyan.mvparms.demo.mvp.contract.CityContract;
-import me.jessyan.mvparms.demo.mvp.model.entity.CityRequest;
-import me.jessyan.mvparms.demo.mvp.model.entity.CityResponse;
+import me.jessyan.mvparms.demo.mvp.model.entity.Area;
+import me.jessyan.mvparms.demo.mvp.model.entity.request.SimpleRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.response.CityResponse;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 
 
@@ -50,8 +51,8 @@ public class CityPresenter extends BasePresenter<CityContract.Model, CityContrac
 
     public void getCities() {
 
-        CityRequest request = new CityRequest();
-
+        SimpleRequest request = new SimpleRequest();
+        request.setCmd(901);
         mModel.getCity(request)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -67,24 +68,24 @@ public class CityPresenter extends BasePresenter<CityContract.Model, CityContrac
                 });
     }
 
-    private void dealData(List<CityResponse.Area> areaList) {
+    private void dealData(List<Area> areaList) {
         if (areaList != null) {
             ArrayList<ExtendedNode> roots = new ArrayList<>();
-            for (CityResponse.Area area : areaList) {
+            for (Area area : areaList) {
                 if ("0".equals(area.getParentId())) {
                     roots.add(new ExtendedNode<>(area, false));
                 }
             }
-            for (ExtendedNode<CityResponse.Area> node : roots) {
-                for (CityResponse.Area area : areaList) {
+            for (ExtendedNode<Area> node : roots) {
+                for (Area area : areaList) {
                     ArrayList<ExtendedNode> childs = new ArrayList<>();
                     if (area.getParentId().equals(node.data.getId())) {
                         childs.add(new ExtendedNode<>(area, false));
                     }
                     node.addSons(childs);
-                    for (ExtendedNode<CityResponse.Area> grandson : childs) {
+                    for (ExtendedNode<Area> grandson : childs) {
                         ArrayList<ExtendedNode> grandsons = new ArrayList<>();
-                        for (CityResponse.Area area1 : areaList) {
+                        for (Area area1 : areaList) {
                             if (area1.getParentId().equals(grandson.data.getId())) {
                                 grandsons.add(new ExtendedNode<>(area1, false));
                             }
