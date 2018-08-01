@@ -18,6 +18,7 @@ package me.jessyan.mvparms.demo.mvp.ui.holder;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.jess.arms.base.BaseHolder;
 import com.jess.arms.base.DefaultAdapter;
@@ -27,8 +28,9 @@ import com.jess.arms.http.imageloader.glide.ImageConfigImpl;
 import com.jess.arms.utils.ArmsUtils;
 
 import butterknife.BindView;
+import io.reactivex.Observable;
 import me.jessyan.mvparms.demo.R;
-import me.jessyan.mvparms.demo.mvp.model.entity.GoodSummary;
+import me.jessyan.mvparms.demo.mvp.model.entity.Goods;
 
 /**
  * ================================================
@@ -39,14 +41,20 @@ import me.jessyan.mvparms.demo.mvp.model.entity.GoodSummary;
  * <a href="https://github.com/JessYanCoding">Follow me</a>
  * ================================================
  */
-public class GoodsStyleOneItemHolder extends BaseHolder<GoodSummary> {
+public class GoodsListItemHolder extends BaseHolder<Goods> {
 
     @BindView(R.id.image)
     ImageView imageIV;
+    @BindView(R.id.name)
+    TextView nameTV;
+    @BindView(R.id.price)
+    TextView priceTV;
+    @BindView(R.id.sale)
+    TextView saleTV;
     private AppComponent mAppComponent;
     private ImageLoader mImageLoader;//用于加载图片的管理类,默认使用 Glide,使用策略模式,可替换框架
 
-    public GoodsStyleOneItemHolder(View itemView) {
+    public GoodsListItemHolder(View itemView, int size) {
         super(itemView);
         //可以在任何可以拿到 Context 的地方,拿到 AppComponent,从而得到用 Dagger 管理的单例对象
         mAppComponent = ArmsUtils.obtainAppComponentFromContext(itemView.getContext());
@@ -54,12 +62,19 @@ public class GoodsStyleOneItemHolder extends BaseHolder<GoodSummary> {
     }
 
     @Override
-    public void setData(GoodSummary goodSummary, int position) {
+    public void setData(Goods goods, int position) {
+        Observable.just(goods.getName())
+                .subscribe(s -> nameTV.setText(s));
+        Observable.just(goods.getSales())
+                .subscribe(s -> saleTV.setText(String.valueOf(s)));
+        Observable.just(goods.getSalesPrice())
+                .subscribe(s -> priceTV.setText(String.valueOf(s)));
+
         //itemView 的 Context 就是 Activity, Glide 会自动处理并和该 Activity 的生命周期绑定
         mImageLoader.loadImage(itemView.getContext(),
                 ImageConfigImpl
                         .builder()
-                        .url(goodSummary.getImage())
+                        .url(goods.getImage())
                         .imageView(imageIV)
                         .build());
     }
@@ -77,6 +92,9 @@ public class GoodsStyleOneItemHolder extends BaseHolder<GoodSummary> {
                 .imageViews(imageIV)
                 .build());
         this.imageIV = null;
+        this.nameTV = null;
+        this.priceTV = null;
+        this.saleTV = null;
         this.mAppComponent = null;
         this.mImageLoader = null;
     }

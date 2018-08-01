@@ -23,9 +23,8 @@ import com.jess.arms.base.DefaultAdapter;
 import java.util.List;
 
 import me.jessyan.mvparms.demo.R;
-import me.jessyan.mvparms.demo.mvp.model.entity.GoodSummary;
-import me.jessyan.mvparms.demo.mvp.ui.holder.GoodsItemHolder;
-import me.jessyan.mvparms.demo.mvp.ui.holder.GoodsStyleOneItemHolder;
+import me.jessyan.mvparms.demo.mvp.model.entity.Goods;
+import me.jessyan.mvparms.demo.mvp.ui.holder.GoodsListItemHolder;
 
 /**
  * ================================================
@@ -36,28 +35,18 @@ import me.jessyan.mvparms.demo.mvp.ui.holder.GoodsStyleOneItemHolder;
  * <a href="https://github.com/JessYanCoding">Follow me</a>
  * ================================================
  */
-public class HomeGoodsAdapter extends DefaultAdapter<GoodSummary> {
-    public HomeGoodsAdapter(List<GoodSummary> goods) {
+public class GoodsListAdapter extends DefaultAdapter<Goods> {
+    public GoodsListAdapter(List<Goods> goods) {
         super(goods);
     }
 
     @Override
-    public BaseHolder<GoodSummary> getHolder(View v, int viewType) {
-        switch (getInfos().size()) {
-            case 1:
-                return new GoodsStyleOneItemHolder(v);
-        }
-        return new GoodsItemHolder(v, getInfos().size());
+    public BaseHolder<Goods> getHolder(View v, int viewType) {
+        return new GoodsListItemHolder(v, getInfos().size());
     }
 
     @Override
     public int getLayoutId(int viewType) {
-        switch (getInfos().size()) {
-            case 1:
-                return R.layout.home_goods_style_one_item;
-            case 2:
-                return R.layout.home_goods_style_two_item;
-        }
-        return R.layout.home_goods_style_normal_item;
+        return R.layout.goods_list_item;
     }
 }

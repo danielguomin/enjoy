@@ -69,11 +69,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
 
     private void initFragment() {
-        mFragmentList.add(new HomeFragment());
-        mFragmentList.add(new MallFragment());
-        mFragmentList.add(new DiscoverFragment());
-        mFragmentList.add(new AppointmentFragment());
-        mFragmentList.add(new MyFragment());
+        mFragmentList.add(HomeFragment.newInstance());
+        mFragmentList.add(MallFragment.newInstance());
+        mFragmentList.add(DiscoverFragment.newInstance());
+        mFragmentList.add(AppointmentFragment.newInstance());
+        mFragmentList.add(MyFragment.newInstance());
     }
 
     private void changeFragment(int currentPosition) {

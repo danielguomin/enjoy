@@ -1,5 +1,7 @@
 package me.jessyan.mvparms.demo.mvp.model.entity;
 
+import java.util.List;
+
 /**
  * Created by guomin on 2018/7/28.
  */
@@ -9,6 +11,8 @@ public class Category {
     private String name;
     private String parentId;
     private String busType;
+
+    private List<Category> catagories;
 
     public String getBusType() {
         return busType;
@@ -42,6 +46,15 @@ public class Category {
         this.parentId = parentId;
     }
 
+
+    public List<Category> getCatagories() {
+        return catagories;
+    }
+
+    public void setCatagories(List<Category> catagories) {
+        this.catagories = catagories;
+    }
+
     @Override
     public String toString() {
         return "Category{" +
@@ -49,6 +62,7 @@ public class Category {
                 ", name='" + name + '\'' +
                 ", parentId='" + parentId + '\'' +
                 ", busType='" + busType + '\'' +
+                ", catagories=" + catagories +
                 '}';
     }
 }

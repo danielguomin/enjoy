@@ -1,6 +1,7 @@
 package me.jessyan.mvparms.demo.di.module;
 
 import com.jess.arms.di.scope.ActivityScope;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import dagger.Module;
 import dagger.Provides;
@@ -31,6 +32,12 @@ public class HomeModule {
     @Provides
     HomeContract.Model provideHomeModel(HomeModel model) {
         return model;
+    }
+
+    @ActivityScope
+    @Provides
+    RxPermissions provideRxPermissions() {
+        return new RxPermissions(view.getActivity());
     }
 
 }

@@ -9,12 +9,12 @@ import com.jess.arms.mvp.BasePresenter;
 
 import javax.inject.Inject;
 
-import me.jessyan.mvparms.demo.mvp.contract.SerachResultContract;
+import me.jessyan.mvparms.demo.mvp.contract.SearchResultContract;
 import me.jessyan.rxerrorhandler.core.RxErrorHandler;
 
 
 @ActivityScope
-public class SerachResultPresenter extends BasePresenter<SerachResultContract.Model, SerachResultContract.View> {
+public class SearchResultPresenter extends BasePresenter<SearchResultContract.Model, SearchResultContract.View> {
     @Inject
     RxErrorHandler mErrorHandler;
     @Inject
@@ -25,7 +25,7 @@ public class SerachResultPresenter extends BasePresenter<SerachResultContract.Mo
     ImageLoader mImageLoader;
 
     @Inject
-    public SerachResultPresenter(SerachResultContract.Model model, SerachResultContract.View rootView) {
+    public SearchResultPresenter(SearchResultContract.Model model, SearchResultContract.View rootView) {
         super(model, rootView);
     }
 

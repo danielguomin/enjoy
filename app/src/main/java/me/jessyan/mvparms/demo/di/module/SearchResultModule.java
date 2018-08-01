@@ -4,32 +4,32 @@ import com.jess.arms.di.scope.ActivityScope;
 
 import dagger.Module;
 import dagger.Provides;
-import me.jessyan.mvparms.demo.mvp.contract.SerachResultContract;
-import me.jessyan.mvparms.demo.mvp.model.SerachResultModel;
+import me.jessyan.mvparms.demo.mvp.contract.SearchResultContract;
+import me.jessyan.mvparms.demo.mvp.model.SearchResultModel;
 
 
 @Module
-public class SerachResultModule {
-    private SerachResultContract.View view;
+public class SearchResultModule {
+    private SearchResultContract.View view;
 
     /**
      * 构建SerachResultModule时,将View的实现类传进来,这样就可以提供View的实现类给presenter
      *
      * @param view
      */
-    public SerachResultModule(SerachResultContract.View view) {
+    public SearchResultModule(SearchResultContract.View view) {
         this.view = view;
     }
 
     @ActivityScope
     @Provides
-    SerachResultContract.View provideSerachResultView() {
+    SearchResultContract.View provideSerachResultView() {
         return this.view;
     }
 
     @ActivityScope
     @Provides
-    SerachResultContract.Model provideSerachResultModel(SerachResultModel model) {
+    SearchResultContract.Model provideSerachResultModel(SearchResultModel model) {
         return model;
     }
 }

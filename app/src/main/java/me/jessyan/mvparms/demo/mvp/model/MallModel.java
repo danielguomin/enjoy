@@ -9,7 +9,13 @@ import com.jess.arms.mvp.BaseModel;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
 import me.jessyan.mvparms.demo.mvp.contract.MallContract;
+import me.jessyan.mvparms.demo.mvp.model.api.service.MainService;
+import me.jessyan.mvparms.demo.mvp.model.entity.request.GoodsListRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.request.SimpleRequest;
+import me.jessyan.mvparms.demo.mvp.model.entity.response.CategoryResponse;
+import me.jessyan.mvparms.demo.mvp.model.entity.response.GoodsListResponse;
 
 
 @ActivityScope
@@ -29,6 +35,19 @@ public class MallModel extends BaseModel implements MallContract.Model {
         super.onDestroy();
         this.mGson = null;
         this.mApplication = null;
+    }
+
+    @Override
+    public Observable<CategoryResponse> getCategory(SimpleRequest request) {
+        return mRepositoryManager.obtainRetrofitService(MainService.class)
+                .getCategory(request);
+    }
+
+
+    @Override
+    public Observable<GoodsListResponse> getGoodsList(GoodsListRequest request) {
+        return mRepositoryManager.obtainRetrofitService(MainService.class)
+                .getCategory(request);
     }
 
 }

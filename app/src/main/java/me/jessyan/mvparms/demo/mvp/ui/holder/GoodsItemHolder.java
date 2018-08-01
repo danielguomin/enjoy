@@ -31,7 +31,7 @@ import com.jess.arms.utils.ArmsUtils;
 import butterknife.BindView;
 import io.reactivex.Observable;
 import me.jessyan.mvparms.demo.R;
-import me.jessyan.mvparms.demo.mvp.model.entity.Goods;
+import me.jessyan.mvparms.demo.mvp.model.entity.GoodSummary;
 
 /**
  * ================================================
@@ -42,7 +42,7 @@ import me.jessyan.mvparms.demo.mvp.model.entity.Goods;
  * <a href="https://github.com/JessYanCoding">Follow me</a>
  * ================================================
  */
-public class GoodsItemHolder extends BaseHolder<Goods> {
+public class GoodsItemHolder extends BaseHolder<GoodSummary> {
 
     @BindView(R.id.image)
     ImageView imageIV;
@@ -69,19 +69,19 @@ public class GoodsItemHolder extends BaseHolder<Goods> {
     }
 
     @Override
-    public void setData(Goods goods, int position) {
-        Observable.just(goods.getName())
+    public void setData(GoodSummary goodSummary, int position) {
+        Observable.just(goodSummary.getName())
                 .subscribe(s -> nameTV.setText(s));
-        Observable.just(goods.getSalePrice())
+        Observable.just(goodSummary.getSalePrice())
                 .subscribe(s -> salePriceTV.setText(s));
-        Observable.just(goods.getMarketPrice())
+        Observable.just(goodSummary.getMarketPrice())
                 .subscribe(s -> marketPriceTV.setText(s));
 
         //itemView 的 Context 就是 Activity, Glide 会自动处理并和该 Activity 的生命周期绑定
         mImageLoader.loadImage(itemView.getContext(),
                 ImageConfigImpl
                         .builder()
-                        .url(goods.getImage())
+                        .url(goodSummary.getImage())
                         .imageView(imageIV)
                         .build());
     }

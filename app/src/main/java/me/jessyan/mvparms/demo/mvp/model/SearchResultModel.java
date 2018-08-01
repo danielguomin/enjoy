@@ -9,16 +9,16 @@ import com.jess.arms.mvp.BaseModel;
 
 import javax.inject.Inject;
 
-import me.jessyan.mvparms.demo.mvp.contract.SerachResultContract;
+import me.jessyan.mvparms.demo.mvp.contract.SearchResultContract;
 
 
 @ActivityScope
-public class SerachResultModel extends BaseModel implements SerachResultContract.Model {
+public class SearchResultModel extends BaseModel implements SearchResultContract.Model {
     private Gson mGson;
     private Application mApplication;
 
     @Inject
-    public SerachResultModel(IRepositoryManager repositoryManager, Gson gson, Application application) {
+    public SearchResultModel(IRepositoryManager repositoryManager, Gson gson, Application application) {
         super(repositoryManager);
         this.mGson = gson;
         this.mApplication = application;

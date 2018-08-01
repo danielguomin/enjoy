@@ -4,11 +4,11 @@ import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.di.scope.ActivityScope;
 
 import dagger.Component;
-import me.jessyan.mvparms.demo.di.module.SerachResultModule;
-import me.jessyan.mvparms.demo.mvp.ui.activity.SerachResultActivity;
+import me.jessyan.mvparms.demo.di.module.SearchResultModule;
+import me.jessyan.mvparms.demo.mvp.ui.activity.SearchResultActivity;
 
 @ActivityScope
-@Component(modules = SerachResultModule.class, dependencies = AppComponent.class)
+@Component(modules = SearchResultModule.class, dependencies = AppComponent.class)
 public interface SerachResultComponent {
-    void inject(SerachResultActivity activity);
+    void inject(SearchResultActivity activity);
 }

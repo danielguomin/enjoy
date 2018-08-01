@@ -10,14 +10,14 @@ import com.jess.arms.utils.ArmsUtils;
 
 import me.jessyan.mvparms.demo.R;
 import me.jessyan.mvparms.demo.di.component.DaggerSerachResultComponent;
-import me.jessyan.mvparms.demo.di.module.SerachResultModule;
-import me.jessyan.mvparms.demo.mvp.contract.SerachResultContract;
-import me.jessyan.mvparms.demo.mvp.presenter.SerachResultPresenter;
+import me.jessyan.mvparms.demo.di.module.SearchResultModule;
+import me.jessyan.mvparms.demo.mvp.contract.SearchResultContract;
+import me.jessyan.mvparms.demo.mvp.presenter.SearchResultPresenter;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
 
-public class SerachResultActivity extends BaseActivity<SerachResultPresenter> implements SerachResultContract.View {
+public class SearchResultActivity extends BaseActivity<SearchResultPresenter> implements SearchResultContract.View {
 
 
     @Override
@@ -25,7 +25,7 @@ public class SerachResultActivity extends BaseActivity<SerachResultPresenter> im
         DaggerSerachResultComponent //如找不到该类,请编译一下项目
                 .builder()
                 .appComponent(appComponent)
-                .serachResultModule(new SerachResultModule(this))
+                .searchResultModule(new SearchResultModule(this))
                 .build()
                 .inject(this);
     }

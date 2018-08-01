@@ -6,35 +6,41 @@ package me.jessyan.mvparms.demo.mvp.model.entity;
 
 public class Goods {
 
-    private String name;
-    private String image;
-    private String redirectType;
+    private int attention;
+    private int cnt;
+    private double costPrice;
     private String goodsId;
-    private String salePrice;
-    private String marketPrice;
+    private String merchId;
+    private String image;
+    private double marketPrice;
+    private String name;
+    private int sales;
+    private double salesPrice;
+    private String title;
+    private int nextPageIndex;
 
-    public String getName() {
-        return name;
+    public int getAttention() {
+        return attention;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAttention(int attention) {
+        this.attention = attention;
     }
 
-    public String getImage() {
-        return image;
+    public int getCnt() {
+        return cnt;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setCnt(int cnt) {
+        this.cnt = cnt;
     }
 
-    public String getRedirectType() {
-        return redirectType;
+    public double getCostPrice() {
+        return costPrice;
     }
 
-    public void setRedirectType(String redirectType) {
-        this.redirectType = redirectType;
+    public void setCostPrice(double costPrice) {
+        this.costPrice = costPrice;
     }
 
     public String getGoodsId() {
@@ -45,31 +51,86 @@ public class Goods {
         this.goodsId = goodsId;
     }
 
-    public String getSalePrice() {
-        return salePrice;
+    public String getMerchId() {
+        return merchId;
     }
 
-    public void setSalePrice(String salePrice) {
-        this.salePrice = salePrice;
+    public void setMerchId(String merchId) {
+        this.merchId = merchId;
     }
 
-    public String getMarketPrice() {
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public double getMarketPrice() {
         return marketPrice;
     }
 
-    public void setMarketPrice(String marketPrice) {
+    public void setMarketPrice(double marketPrice) {
         this.marketPrice = marketPrice;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getSales() {
+        return sales;
+    }
+
+    public void setSales(int sales) {
+        this.sales = sales;
+    }
+
+    public double getSalesPrice() {
+        return salesPrice;
+    }
+
+    public void setSalesPrice(double salesPrice) {
+        this.salesPrice = salesPrice;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public int getNextPageIndex() {
+        return nextPageIndex;
+    }
+
+    public void setNextPageIndex(int nextPageIndex) {
+        this.nextPageIndex = nextPageIndex;
     }
 
     @Override
     public String toString() {
         return "Goods{" +
-                "name='" + name + '\'' +
-                ", image='" + image + '\'' +
-                ", redirectType='" + redirectType + '\'' +
+                "attention=" + attention +
+                ", cnt=" + cnt +
+                ", costPrice=" + costPrice +
                 ", goodsId='" + goodsId + '\'' +
-                ", salePrice='" + salePrice + '\'' +
-                ", marketPrice='" + marketPrice + '\'' +
+                ", merchId='" + merchId + '\'' +
+                ", image='" + image + '\'' +
+                ", marketPrice=" + marketPrice +
+                ", name='" + name + '\'' +
+                ", sales=" + sales +
+                ", salesPrice=" + salesPrice +
+                ", title='" + title + '\'' +
+                ", nextPageIndex=" + nextPageIndex +
                 '}';
     }
 }
+

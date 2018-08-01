@@ -19,6 +19,7 @@ import com.google.gson.reflect.TypeToken;
 import com.jess.arms.base.BaseFragment;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
@@ -27,6 +28,8 @@ import org.simple.eventbus.Subscriber;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import me.jessyan.mvparms.demo.R;
@@ -37,7 +40,7 @@ import me.jessyan.mvparms.demo.mvp.contract.HomeContract;
 import me.jessyan.mvparms.demo.mvp.model.entity.Ad;
 import me.jessyan.mvparms.demo.mvp.model.entity.Area;
 import me.jessyan.mvparms.demo.mvp.model.entity.Article;
-import me.jessyan.mvparms.demo.mvp.model.entity.Goods;
+import me.jessyan.mvparms.demo.mvp.model.entity.GoodSummary;
 import me.jessyan.mvparms.demo.mvp.model.entity.Module;
 import me.jessyan.mvparms.demo.mvp.model.entity.NaviInfo;
 import me.jessyan.mvparms.demo.mvp.presenter.HomePresenter;
@@ -67,6 +70,13 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
     Banner banner;
     @BindView(R.id.module_layout)
     LinearLayout moduleLayout;
+    @Inject
+    RxPermissions mRxPermissions;
+
+    public static HomeFragment newInstance() {
+        HomeFragment fragment = new HomeFragment();
+        return fragment;
+    }
 
     @Override
     public void setupFragmentComponent(@NonNull AppComponent appComponent) {
@@ -94,6 +104,11 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
 
         mPresenter.updateHomeInfo();
 
+    }
+
+    @Override
+    public RxPermissions getRxPermissions() {
+        return mRxPermissions;
     }
 
     @Override
@@ -146,15 +161,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeCon
                 moduleV.findViewById(R.id.module_info).setVisibility(View.GONE);
             }
             if ("goods".equals(module.getType())) {
-                List<Goods> goods = new Gson().fromJson(module.getBody(), new TypeToken<List<Goods>>() {
+                List<GoodSummary> goods = new Gson().fromJson(module.getBody(), new TypeToken<List<GoodSummary>>() {
                 }.getType());
-                if ("限时秒杀".equals(module.getName())) {
-                } else if ("套餐专区".equals(module.getName())) {
-                    goods.addAll(goods);
-                    goods.add(goods.get(0));
-                    goods.add(goods.get(0));
-                } else if ("新人专区".equals(module.getName())) {
-                }
                 moduleRV.addItemDecoration(new SpacesItemDecoration(ArmsUtils.getDimens(ArmsUtils.getContext(), R.dimen.home_module_style_margin_left), 0));
                 moduleRV.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false));
                 moduleRV.setAdapter(new HomeGoodsAdapter(goods));

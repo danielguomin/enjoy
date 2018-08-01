@@ -3,24 +3,69 @@ package me.jessyan.mvparms.demo.mvp.ui.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.TabLayout;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.jess.arms.base.BaseFragment;
+import com.jess.arms.base.DefaultAdapter;
 import com.jess.arms.di.component.AppComponent;
 import com.jess.arms.utils.ArmsUtils;
 
+import java.util.List;
+
+import javax.inject.Inject;
+
+import butterknife.BindView;
 import me.jessyan.mvparms.demo.R;
 import me.jessyan.mvparms.demo.di.component.DaggerMallComponent;
 import me.jessyan.mvparms.demo.di.module.MallModule;
 import me.jessyan.mvparms.demo.mvp.contract.MallContract;
+import me.jessyan.mvparms.demo.mvp.model.entity.Category;
+import me.jessyan.mvparms.demo.mvp.model.entity.Goods;
 import me.jessyan.mvparms.demo.mvp.presenter.MallPresenter;
+import me.jessyan.mvparms.demo.mvp.ui.activity.GoodsDetailsActivity;
+import me.jessyan.mvparms.demo.mvp.ui.activity.SearchActivity;
+import me.jessyan.mvparms.demo.mvp.ui.adapter.GoodsListAdapter;
 
 import static com.jess.arms.utils.Preconditions.checkNotNull;
 
 
-public class MallFragment extends BaseFragment<MallPresenter> implements MallContract.View {
+public class MallFragment extends BaseFragment<MallPresenter> implements MallContract.View, View.OnClickListener, DefaultAdapter.OnRecyclerViewItemClickListener {
+
+    @BindView(R.id.tab)
+    TabLayout tabLayout;
+    @BindView(R.id.message)
+    View messageV;
+    @BindView(R.id.cart)
+    View cartV;
+    @BindView(R.id.search)
+    View searchV;
+    @BindView(R.id.type_layout)
+    View typeV;
+    @BindView(R.id.type)
+    TextView typeTV;
+    @BindView(R.id.sale_layout)
+    View saleV;
+    @BindView(R.id.sale)
+    TextView saleTV;
+    @BindView(R.id.sale_status)
+    View saleStatusV;
+    @BindView(R.id.price_layout)
+    View priceV;
+    @BindView(R.id.price)
+    TextView priceTV;
+    @BindView(R.id.price_status)
+    View priceStautsV;
+    @BindView(R.id.goods)
+    RecyclerView mRecyclerView;
+    @Inject
+    RecyclerView.LayoutManager mLayoutManager;
+    @Inject
+    GoodsListAdapter mAdapter;
 
 
     public static MallFragment newInstance() {
@@ -45,7 +90,19 @@ public class MallFragment extends BaseFragment<MallPresenter> implements MallCon
 
     @Override
     public void initData(Bundle savedInstanceState) {
+        messageV.setOnClickListener(this);
+        cartV.setOnClickListener(this);
+        searchV.setOnClickListener(this);
+        typeV.setOnClickListener(this);
+        saleV.setOnClickListener(this);
+        priceV.setOnClickListener(this);
+        mAdapter.setOnItemClickListener(this);
 
+        ArmsUtils.configRecyclerView(mRecyclerView, mLayoutManager);
+        mRecyclerView.setAdapter(mAdapter);
+
+        mPresenter.getCategory();
+        mPresenter.getGoodsList("", "");
     }
 
     /**
@@ -93,4 +150,34 @@ public class MallFragment extends BaseFragment<MallPresenter> implements MallCon
 
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.cart:
+                break;
+            case R.id.message:
+                break;
+            case R.id.search:
+                ArmsUtils.startActivity(SearchActivity.class);
+                break;
+        }
+    }
+
+    @Override
+    public void refreshNaviTitle(List<Category> categories) {
+        for (Category category : categories) {
+            if ("0".equals(category.getParentId())) {
+                tabLayout.addTab(tabLayout.newTab().setText(category.getName()));
+            }
+        }
+    }
+
+    @Override
+    public void onItemClick(View view, int viewType, Object data, int position) {
+        Goods goods = mAdapter.getInfos().get(position);
+        Intent intent = new Intent(getActivity().getApplication(), GoodsDetailsActivity.class);
+        intent.putExtra("goodsId", goods.getGoodsId());
+        intent.putExtra("merchId", goods.getMerchId());
+        ArmsUtils.startActivity(intent);
+    }
 }
